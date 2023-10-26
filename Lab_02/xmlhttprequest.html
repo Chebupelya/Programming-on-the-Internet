@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <h1>FSP: </h1>
+    <h2 class="alongHeader"></h2>
+    <script>
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', 'http://localhost:5000/api/name', false);
+        xhr.send();
+        let input = document.querySelector(".alongHeader");
+        if (xhr.status == 200) {
+            input.innerHTML = xhr.responseText;
+            console.log(xhr.responseText);
+        }
+        else
+            console.log("Server response: " + xhr.statusText);
+    </script>
+</body>
+
+
+</html>
