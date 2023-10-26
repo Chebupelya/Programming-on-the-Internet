@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+</head>
+
+<body>
+    <h1>FSP: </h1>
+    <h2 class="alongHeader"></h2>
+    <script>
+        let input = document.getElementById("inner");
+
+        $.ajax({
+            method: 'GET',
+            url: '/api/name',
+            success: (data) => {
+                $('.alongHeader').html(data);
+            },
+            error: (xhr, textStatus, errorThrown) => {
+                console.error('Server response:', textStatus);
+            }
+        });
+    </script>
+</body>
+
+
+</html>
