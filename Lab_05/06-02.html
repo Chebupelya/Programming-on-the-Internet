@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+        <div>
+            <h1>email sender: </h1>
+            <input value="nikitailyin186@gmail.com" type="text" id="sender"/>
+        </div>
+        <div>
+            <h1>password: </h1>
+            <input value="vihf qvey qbdc cgtu" type="password" id="password"/>
+        </div>
+        <div>
+            <h1>email receiver: </h1>
+            <input value="nikitailyin186@gmail.com" type="text" id="receiver"/>
+        </div>
+        <div>
+            <h1>theme : </h1>
+            <input value="THEME" type="text" id="theme"/>
+        </div>
+        <div>
+            <h1>textMessege : </h1>
+            <input value="MESSAGE" type="text" id="textMessege"/>
+        </div>
+        <button onclick="postEmail()">
+            send
+        </button>
+    </form>
+</body>
+<script>
+    function postEmail(){
+        console.log(JSON.stringify({
+                sender: sender,
+                password: password.value,
+                receiver: receiver.value,
+                theme: theme.value,
+                textMessege: textMessege.value
+                }));
+        if(sender.value == "" || password.value == "" || receiver.value == ""){
+            alert("Enter field!!!")
+            return;
+        }
+        fetch("http://localhost:3000/",{ 
+            method: "POST",
+            body: JSON.stringify({
+                sender: sender.value,
+                password: password.value,
+                receiver: receiver.value,
+                theme: theme.value,
+                textMessege: textMessege.value
+                })
+        }).then(response => alert(response))
+            .catch((errorMessage) => {
+                console.log(errorMessage);
+            })
+        sender.value = "";
+        password.value = "";
+        receiver.value = "";
+    }
+    
+</script>
+</html>
