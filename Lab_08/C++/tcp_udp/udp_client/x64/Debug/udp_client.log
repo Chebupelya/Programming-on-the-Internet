@@ -1,0 +1,5 @@
+﻿  udp_client.cpp
+C:\Users\IlyaL\Desktop\PSKP\Labs\lab10\C++\tcp_udp\udp_client\udp_client.cpp(43,65): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\IlyaL\Desktop\PSKP\Labs\lab10\C++\tcp_udp\udp_client\udp_client.cpp(35,28): warning C4101: end: неиспользованная локальная переменная
+C:\Users\IlyaL\Desktop\PSKP\Labs\lab10\C++\tcp_udp\udp_client\udp_client.cpp(35,21): warning C4101: start: неиспользованная локальная переменная
+  udp_client.vcxproj -> C:\Users\IlyaL\Desktop\PSKP\Labs\lab10\C++\tcp_udp\x64\Debug\udp_client.exe
