@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Upload</title>
+    <style>
+        form {
+            text-align: center;
+        }
+        form * {
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+        <label>ID</label>
+        <input type="number" name="id" /><br>
+        <input type="file" name="image" /><br>
+        <input type="submit" value="Отправить" />
+    </form>
+</body>
+</html>
