@@ -1,0 +1,57 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "sqlite"
+    url      = "file:./INS.db"
+}
+
+model faculty {
+  fac_id       Int      @id @default(autoincrement())
+  faculty_abbr String
+  faculty_name String?
+  pulpit       pulpit[]
+}
+
+model pulpit {
+  pulpit_id    Int      @id @default(autoincrement())
+  pulpit       String 
+  pulpit_name  String?
+  faculty      Int
+  facultyRel   faculty  @relation(fields: [faculty], references: [fac_id])
+  subject      subject[]
+  teacher      teacher[]
+}
+
+model subject {
+  subject_id   Int     @id @default(autoincrement())
+  subject      String
+  subject_name String
+  pulpit       Int
+  pulpitRel    pulpit  @relation(fields: [pulpit], references: [pulpit_id])
+}
+
+model teacher {
+  teacher_id   Int     @id @default(autoincrement())
+  teacher      String
+  teacher_name String?
+  pulpit       Int
+  pulpitRel    pulpit  @relation(fields: [pulpit], references: [pulpit_id])
+}
+
+model auditorium_type {
+  auditorium_type_id  Int           @id @default(autoincrement())
+  auditorium_type     String       
+  auditorium_typename String
+  auditorium          auditorium[]
+}
+
+model auditorium {
+  auditorium_id       Int             @id @default(autoincrement())
+  auditorium          String          
+  auditorium_name     String?
+  auditorium_capacity Int?
+  auditorium_type     Int
+  auditoriumTypeRel   auditorium_type @relation(fields: [auditorium_type], references: [auditorium_type_id])
+}

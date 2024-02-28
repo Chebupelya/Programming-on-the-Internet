@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #page-number {
+            font-size: 20px;
+            font-weight: bold;
+            margin-left: 10px;
+            margin-right: 10px;
+            display: inline-block;
+        }
+
+        .pagination {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .pagination button {
+            display: inline-block;
+            margin: 0 5px;
+        }
+    </style>
+</head>
+<body>
+
+<table>
+    <thead>
+    <tr>
+        <td>PULPIT</td>
+        <td>PULPIT NAME</td>
+        <td>FACULTY</td>
+        <td>TEACHERS COUNT</td>
+    </tr>
+    </thead>
+    <tbody id="tbody">
+
+    </tbody>
+</table>
+
+<div class="pagination">
+    <button onclick="getPulpits(-1)">Previous</button>
+    <div id="page-number">1</div>
+    <button onclick="getPulpits(+1)">Next</button>
+</div>
+
+<script defer>
+    document.addEventListener("DOMContentLoaded", async () => {
+        await getPulpits(0);
+    });
+
+    async function getPulpits(mode) {
+        const pageNumberElement = document.querySelector("#page-number");
+        const tableElement = document.querySelector("#tbody");
+
+        let pageNumber = +pageNumberElement.innerText;
+
+        if (mode !== 0) {
+            pageNumber += mode;
+        }
+
+        if (pageNumber < 1) {
+            pageNumber = 1;
+            return;
+        }
+
+        const data = await fetch(`http://localhost:3000/api/getPulpitsByCount/${pageNumber - 1}`);
+        const result = await data.json();
+
+        console.log(result);
+
+        if (result.length === 0 && mode === 1) {
+            return;
+        } else {
+            tableElement.innerHTML = "";
+
+            result.forEach(x => {
+                const {pulpit, pulpit_name, facultyRel, _count} = x;
+                console.log(x);
+
+                const pulpitTd = document.createElement("td");
+                const pulpitNameTd = document.createElement("td");
+                const facultyTd = document.createElement("td");
+                const countTd = document.createElement("td");
+
+                const tr = document.createElement("tr");
+
+                pulpitTd.textContent = pulpit;
+                pulpitNameTd.textContent = pulpit_name;
+                facultyTd.textContent = facultyRel.faculty_abbr;
+                countTd.textContent = _count.teacher;
+
+                tr.append(pulpitTd, pulpitNameTd, facultyTd, countTd);
+                tableElement.append(tr);
+            });
+
+            pageNumberElement.innerText = pageNumber.toString();
+        }
+    }
+</script>
+
+</body>
+</html>
