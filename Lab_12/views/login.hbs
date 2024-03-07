@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Sign In</title>
+</head>
+<body>
+
+<input id="username" type="text" placeholder="Username"/>
+<input id="password" type="password" placeholder="Password"/>
+<input id="sign-in" type="button" value="Login"/>
+
+</body>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script>
+    const URL = "http://localhost:3000";
+    document.getElementById("sign-in").addEventListener("click", async () => {
+
+        try {
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            await axios.post(`${URL}/login`, {
+                username: username,
+                password,
+            });
+            window.location.href = `${URL}/resource`;
+
+        } catch (error) {
+            alert(error?.response?.data?.message);
+        }
+    });
+</script>
+</html>

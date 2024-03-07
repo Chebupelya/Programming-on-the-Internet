@@ -1,0 +1,14 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./INS.db"
+}
+
+model User {
+  id       String @id @default(cuid())
+  username String @unique
+  password String
+}
